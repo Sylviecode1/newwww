@@ -29,7 +29,7 @@
             position: relative;
             width: 80vw;
             height: 60vh;
-            background-image: url('game-bg'); /* Game background */
+            background-image: url('game-bg');
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -42,7 +42,7 @@
             position: absolute;
             width: 80px;
             height: 80px;
-            background-image: url('baby-silppi'); /* Baby Silppi image */
+            background-image: url('baby-silppi');
             background-size: cover;
             border-radius: 50%;
             animation: moveSilppi 1.5s linear infinite;
@@ -96,7 +96,6 @@
         let gameContainer = document.querySelector('.game-container');
         let slideCounter = 0;
 
-        // Function to move the Silppi image to a new random position
         function moveSilppi() {
             let gameContainerWidth = gameContainer.offsetWidth;
             let gameContainerHeight = gameContainer.offsetHeight;
@@ -108,23 +107,20 @@
             silppi.style.top = randomY + 'px';
         }
 
-        // Move the Silppi every 500ms
         setInterval(moveSilppi, 500);
 
-        // Go to the next slide when swipe button is clicked
         function nextSlide() {
             slideCounter++;
             if (slideCounter === 1) {
-                gameContainer.style.backgroundImage = 'url("instruction-bg")'; // Change to instruction background
+                gameContainer.style.backgroundImage = 'url("instruction-bg")';
             } else if (slideCounter === 2) {
-                gameContainer.style.backgroundImage = 'url("final-bg")'; // Final background
-                silppi.style.animation = 'none'; // Stop current animation
-                silppi.style.animation = 'moveSilppi 1.5s linear infinite'; // Restart animation
-                moveSilppi(); // Position Silppi to a new location
+                gameContainer.style.backgroundImage = 'url("final-bg")';
+                silppi.style.animation = 'none';
+                silppi.style.animation = 'moveSilppi 1.5s linear infinite';
+                moveSilppi();
             }
         }
 
-        // Initially set Silppi to a random position
         moveSilppi();
     </script>
 </body>
