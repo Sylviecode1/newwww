@@ -21,7 +21,7 @@
       flex-shrink: 0;
       background-position: center;
       background-repeat: no-repeat;
-      background-size: contain;
+      background-size: 100% auto; /* Adjusted for better background fit */
       position: relative;
     }
 
@@ -66,7 +66,6 @@
       vertical-align: middle;
     }
 
-    /* New styles for Slide 1 */
     .slide #slide1 .intro-text {
       position: absolute;
       top: 15%;
@@ -95,7 +94,7 @@
       <h1>Catch Baby Silppi</h1>
       <p>Tap on Baby Silppi image</p>
     </div>
-    <img src="baby-silppi.jpg" id="baby-img" style="position:absolute; width:150px; height:150px; border-radius:50%; top:60%; left:40%; cursor:pointer;">
+    <img src="your-baby-photo.jpg" id="baby-img" style="position:absolute; width:150px; height:150px; border-radius:50%; top:60%; left:40%; cursor:pointer;">
   </div>
 
   <!-- Slide 2: Swipe Prompt -->
@@ -122,7 +121,6 @@
     slider.style.transform = `translateX(-${currentSlide * 100}%)`;
   });
 
-  // Touch swipe support
   let startX = 0;
   slider.addEventListener('touchstart', e => {
     startX = e.touches[0].clientX;
