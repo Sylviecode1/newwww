@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catch Baby Silppi!</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Comic Sans MS', cursive;
+    }
+
+    .container {
+      display: flex;
+      width: 300%;
+      height: 100%;
+      transition: transform 0.8s ease;
+    }
+
+    .slide {
+      width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    #slide1 {
+      background-image: url('game-bg.jpg');
+    }
+
+    #slide2 {
+      background-image: url('instruction-bg.jpg');
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      color: white;
+      text-shadow: 2px 2px 5px black;
+    }
+
+    #slide3 {
+      background-image: url('final-bg.jpg');
+    }
+
+    #baby-img {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: top 0.3s, left 0.3s;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+
+    #instructions {
+      position: absolute;
+      top: 20%;
+      width: 100%;
+      text-align: center;
+      font-size: 1.5em;
+      color: white;
+      text-shadow: 2px 2px 4px black;
+    }
+
+    #footer {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      text-align: right;
+      color: white;
+      font-size: 1em;
+      text-shadow: 2px 2px 5px black;
+    }
+
+    #footer strong {
+      font-size: 1.2em;
+    }
+
+    #profile-photo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      margin-top: 5px;
+    }
+
+    .swipe-button {
+      position: absolute;
+      right: 20px;
+      bottom: 30px;
+      padding: 10px 18px;
+      font-size: 1em;
+      background-color: rgba(255, 255, 255, 0.8);
+      color: black;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="slider">
+    <!-- Slide 1: Game -->
+    <div class="slide" id="slide1">
+      <div id="instructions">Tap on the image to catch me, Mumma!</div>
+      <img src="your-baby-photo.jpg" id="baby-img" alt="Baby Silppi">
+    </div>
+
+    <!-- Slide 2: Instruction -->
+    <div class="slide" id="slide2">
+      Swipe right ➡️
+    </div>
+
+    <!-- Slide 3: Final -->
+    <div class="slide" id="slide3">
+      <div id="footer">
+        Made by your coder gurl<br><strong>Silppi</strong><br>
+        <img src="profile-photo.jpg" alt="Silppi" id="profile-photo">
+      </div>
+    </div>
+  </div>
+
+  <button class="swipe-button" id="nextBtn">➡️</button>
+
+  <script>
+    const babyImg = document.getElementById('baby-img');
+    const slider = document.getElementById('slider');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let currentSlide = 0;
+
+    function moveBaby() {
+      const maxX = window.innerWidth - 150;
+      const maxY = window.innerHeight - 150;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      babyImg.style.left = `${x}px`;
+      babyImg.style.top = `${y}px`;
+    }
+
+    let moveInterval = setInterval(moveBaby, 1500);
+    moveBaby();
+
+    babyImg.addEventListener('click', () => {
+      clearInterval(moveInterval);
+      nextSlide(); // Move to slide 2 after catching
+    });
+
+    nextBtn.addEventListener('click', nextSlide);
+
+    function nextSlide() {
+      if (currentSlide < 2) {
+        currentSlide++;
+        slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+      }
+    }
+
+    window.addEventListener('resize', moveBaby);
+  </script>
+
+</body>
+</html>
