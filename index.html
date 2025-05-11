@@ -1,127 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catch Baby Silppi!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Quicksand', sans-serif;
-            background-color: #f8d1e3;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        h1 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            color: #ff67b0;
-            font-size: 3em;
-            margin-top: 20px;
-        }
-        .game-container {
-            position: relative;
-            width: 80vw;
-            height: 60vh;
-            background-image: url('game-bg');
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 20px;
-            overflow: hidden;
-            animation: backgroundChange 3s infinite alternate;
-        }
-        #silppi {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background-image: url('baby-silppi');
-            background-size: cover;
-            border-radius: 50%;
-            animation: moveSilppi 1.5s linear infinite;
-        }
-        .swipe-button {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 15px 30px;
-            background-color: #ff67b0;
-            color: white;
-            border-radius: 30px;
-            font-size: 1.2em;
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .made-by {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            font-size: 1em;
-            color: #ff67b0;
-            font-weight: 600;
-        }
-        @keyframes moveSilppi {
-            0% { top: 10%; left: 10%; }
-            25% { top: 20%; left: 80%; }
-            50% { top: 60%; left: 40%; }
-            75% { top: 80%; left: 10%; }
-            100% { top: 10%; left: 80%; }
-        }
-        @keyframes backgroundChange {
-            0% { background-color: #f8d1e3; }
-            50% { background-color: #ffc0cb; }
-            100% { background-color: #ff67b0; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catch Baby Silppi!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: #f8d1e3;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.5rem;
+      color: #ff67b0;
+      margin-bottom: 1rem;
+    }
+
+    .game-container {
+      position: relative;
+      width: 80vw;
+      height: 60vh;
+      background-image: url('game-bg');
+      background-size: cover;
+      background-position: center;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #silppi {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background-image: url('baby-silppi');
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      transition: top 0.3s ease, left 0.3s ease;
+      cursor: pointer;
+    }
+
+    .swipe-button {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ff67b0;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      padding: 12px 24px;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+
+    .made-by {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #ff67b0;
+    }
+  </style>
 </head>
 <body>
-    <h1>Catch Baby Silppi If You Can!</h1>
-    <div class="game-container">
-        <div id="silppi"></div>
-        <button class="swipe-button" onclick="nextSlide()">Swipe Up</button>
-        <div class="made-by">Made by Your Code Gurl Silppi</div>
-    </div>
+  <h1>Catch Baby Silppi If You Can!</h1>
+  <div class="game-container" id="gameContainer">
+    <div id="silppi" onclick="onSilppiClick()"></div>
+    <button class="swipe-button" onclick="nextSlide()">Swipe Up</button>
+    <div class="made-by">Made by Your Code Gurl Silppi</div>
+  </div>
 
-    <script>
-        let silppi = document.getElementById('silppi');
-        let gameContainer = document.querySelector('.game-container');
-        let slideCounter = 0;
+  <script>
+    const silppi = document.getElementById('silppi');
+    const gameContainer = document.getElementById('gameContainer');
+    let slideCounter = 0;
 
-        function moveSilppi() {
-            let gameContainerWidth = gameContainer.offsetWidth;
-            let gameContainerHeight = gameContainer.offsetHeight;
-            let maxX = gameContainerWidth - silppi.offsetWidth;
-            let maxY = gameContainerHeight - silppi.offsetHeight;
-            let randomX = Math.random() * maxX;
-            let randomY = Math.random() * maxY;
-            silppi.style.left = randomX + 'px';
-            silppi.style.top = randomY + 'px';
-        }
+    function moveSilppi() {
+      const maxX = gameContainer.offsetWidth - silppi.offsetWidth;
+      const maxY = gameContainer.offsetHeight - silppi.offsetHeight;
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+      silppi.style.left = `${randomX}px`;
+      silppi.style.top = `${randomY}px`;
+    }
 
-        setInterval(moveSilppi, 500);
+    function onSilppiClick() {
+      nextSlide();
+    }
 
-        function nextSlide() {
-            slideCounter++;
-            if (slideCounter === 1) {
-                gameContainer.style.backgroundImage = 'url("instruction-bg")';
-            } else if (slideCounter === 2) {
-                gameContainer.style.backgroundImage = 'url("final-bg")';
-                silppi.style.animation = 'none';
-                silppi.style.animation = 'moveSilppi 1.5s linear infinite';
-                moveSilppi();
-            }
-        }
+    function nextSlide() {
+      slideCounter++;
+      if (slideCounter === 1) {
+        gameContainer.style.backgroundImage = "url('instruction-bg')";
+      } else if (slideCounter === 2) {
+        gameContainer.style.backgroundImage = "url('final-bg')";
+      }
+    }
 
-        moveSilppi();
-    </script>
+    setInterval(moveSilppi, 500);
+    moveSilppi();
+  </script>
 </body>
 </html>
